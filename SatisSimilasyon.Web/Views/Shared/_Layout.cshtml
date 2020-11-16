@@ -1,0 +1,185 @@
+﻿@using SatisSimilasyon.Web.Models
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+	<title>Satış Fiyat Simülasyon Projesi</title>
+
+	<link href="/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	<link href="/Content/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+	<link href="/Content/build/css/custom.min.css" rel="stylesheet">
+	<style>
+		.nav_title {
+			height: 100px;
+		}
+
+		.navbar {
+			border: none;
+		}
+	</style>
+
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col menu_fixed">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title">
+
+						<a href="/" class="site_title">
+							<img src="~/Content/img/SatSimLogo.png" style="height: 100px;width:100%;" />
+						</a>
+
+					</div>
+					<div class="clearfix"></div>
+					<!-- menu profile quick info -->
+					<div class="profile clearfix">
+						<div class="profile_info">
+							<span> Hoşgeldiniz,</span>
+							<h2 style="margin-left: 10%">@SatisSimilasyon.Web.Models.CurrentSession.GetOnlineUser()</h2>
+						</div>
+					</div>
+					<!-- /menu profile quick info -->
+
+					<br />
+
+					<!-- sidebar menu -->
+					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu ">
+						<div class="menu_section">
+							<h3>Menü</h3>
+							<ul class="nav side-menu">
+								<li>
+									<a><i class="fa fa-home"></i> Parametreler <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										@if (SatisSimilasyon.Web.Models.CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Admin || SatisSimilasyon.Web.Models.CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Management)
+										{
+											<li><a href="/Users">Kullanıcı Listesi</a></li>
+											<li><a href="/MailParams">Mail Ayar</a></li>
+										}
+										<li><a href="/References">Referans Listesi</a></li>
+										<li><a href="/ProductGroups">Ürün Grubu Listesi</a></li>
+									</ul>
+								</li>
+								<li>
+									<a><i class="fa fa-edit"></i> Fiyat Simülasyonu <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="/Simulation/">Simülasyon Listesi</a></li>
+										<li><a href="/Simulation/Create">Yeni Simülasyon</a></li>
+										<li><a href="/Simulation/CompareSimulation">Simülasyon Karşılaştır</a></li>
+										<li><a href="/Simulation/CompareSimulationsList">Simülasyon Karşılaştırma Listesi</a></li>
+									</ul>
+								</li>
+								<li>
+									<a><i class="fa fa-clone"></i>Transfer İşlemleri <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="/Transfers/ExcelToDb">Excelden Aktar</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- /sidebar menu -->
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<div class="top_nav">
+				<div class="nav_menu">
+					<nav>
+						<div class="nav toggle">
+							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+						</div>
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="/Home/LogOut" title="Çıkış"> <i class="fa fa-power-off"></i></a>
+							</li>
+							<li role="presentation" class="dropdown">
+								<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+									<i class="fa fa-envelope-o"></i>
+									@if (ViewData["Count"] != null)
+									{
+										<span class="badge bg-green">@ViewData["Count"]</span>
+									}
+								</a>
+								<ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+									@if (ViewData["Notifications"] != null)
+									{
+										foreach (var item in ViewData["Notifications"] as IEnumerable<SatisSimilasyon.Entity.NotificationClasses.Notification>)
+										{
+											<li>
+												<a href="@item.ContAction@item.NotiId">
+													<span>
+														<span>@item.CreatedBy</span>
+														<span class="time">@item.CreatedOn</span>
+													</span>
+													<span class="message">
+														@item.Description
+													</span>
+												</a>
+											</li>
+										}
+									}
+									else
+									{
+										<li>
+											<div class="text-center">
+												<a>
+													<strong>Bildirim Yok</strong>
+													<i class="fa fa-angle-right"></i>
+												</a>
+											</div>
+										</li>
+									}
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="right_col black" role="main">
+				@RenderBody()
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="pull-right ">
+			Tasarım ve kodlama: input Teknoloji A.Ş. - <u>www.input.com.tr</u>
+		</div>
+		<div class="clearfix"></div>
+	</footer>
+
+	<script src="/Content/vendors/jquery/dist/jquery.min.js"></script>
+	<script src="/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<script src="/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/Content/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="/Content/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/Content/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+
+	<script src="/Content/build/js/sweetalert2.js"></script>
+	<script src="/Content/vendors/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="/Content/build/js/custom.min.js"></script>
+	<script src="/Content/build/js/SatisSimulasyonCustom.js"></script>
+	<script src="/Content/build/js/jquery.blockUI.js"></script>
+	<script src="/Content/vendors/FileSaver.js-master/dist/FileSaver.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.4/xlsx.core.min.js"></script>
+	<script src="/Content/build/js/jhxlsx.js"></script>
+
+	@RenderSection("scripts", required: false)
+</body>
+
+</html>

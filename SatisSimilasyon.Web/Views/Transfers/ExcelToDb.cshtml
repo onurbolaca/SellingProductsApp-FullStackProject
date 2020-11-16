@@ -1,0 +1,232 @@
+﻿@using SatisSimilasyon.Entity.ReferenceClasses
+
+@{
+	ViewBag.Title = "ExcelToDb";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* ÖRNEK EXCEL İNDİRİLMESİ İÇİN POPUP BAŞLANGIÇ *@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">X</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel1">Excel Aktarım Bilgilendirmesi</h4>
+			</div>
+			<div class="modal-body">
+				<h3>Bilgilendirme: Excel aktarımı yaparken;</h3>
+				<ul>
+					<li><p>ilk önce "Dosya Seçiniz" butonuna basınız</p></li>
+					<li><p>sonra "Yükle" butonuna basarak düzenlediğiniz dosyayı seçiniz.</p></li>
+					<li><p>son olarak "Kaydet" butonuna basarak işlemi sonlandırınız.</p></li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" id="btnInfo" data-dismiss="modal">Örnek Excel</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Tamam</button>
+			</div>
+		</div>
+	</div>
+</div>
+@* ÖRNEK EXCEL İNDİRİLMESİ İÇİN POPUP BİTİŞ *@
+
+
+@* SAYFA BODY BAŞLANGIÇ *@
+<div class="">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>
+						excel aktarım
+						<span data-toggle="modal" data-target=".bs-example-modal-lg">
+							<button name="info" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Bilgilendirme"><i class="fa fa-info"></i></button>
+						</span>
+					</h2>
+
+					@using (Html.BeginForm("UploadExcel", "Transfers", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+					{
+						<ul class="nav navbar-right panel_toolbox">
+							<li>
+								<button id="fileButton" class="btn btn-warning" onclick="document.getElementById('file').click()" type="button">Dosya Seçiniz</button>
+								<input type="file" name="file" value="" id="file" style="display:none" />
+							</li>
+							<li>
+								<button type="submit" class="btn btn-warning" id="btnFileUpload" data-toggle="tooltip" data-placement="top" title="Dosya Yükle">
+									<i class="fa fa-file-text"></i>
+								</button>
+							</li>
+							<li>
+								<button type="button" class="btn btn-warning" id="btnSave" data-toggle="tooltip" data-placement="top" title="Kaydet">
+									<i class="fa fa-check"></i>
+								</button>
+							</li>
+						</ul>
+					}
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table id="dtExcel" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline black" cellpadding="0" cellspacing="0" width="100%" role="grid" describedby="datatable-responsive_info" style="width:100%">
+						<thead>
+							<tr>
+								<th>Ürün Grup Adı</th>
+								<th>Müşteri Referans No</th>
+								<th>Referans Kodu</th>
+								<th>Referans Adı</th>
+								<th>Son Fiyat</th>
+								<th>Referans Grup</th>
+								<th>Local/Export</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* SAYFA BODY BİTİŞ *@
+
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			$('dtExcel').DataTable({
+				"paging": false,
+				"scrollCollapse": true
+			});
+		});
+
+		$('form').submit(
+			function (event) {
+				try {
+					event.preventDefault();
+					if ($("#file").val() == "") {
+						toastr["error"]("Lütfen önce Excel dosyasını seçiniz.");
+						return;
+					}
+					var formdata = new FormData($(this).get(0));
+					$.ajax(
+						{
+							url: this.action,
+							type: this.method,
+							data: formdata,
+							processData: false,
+							contentType: false,
+							beforeSend: function () { $.blockUI({ message: '<h1>Excel verileri aktarılıyor.</h1><br/> Lütfen bekleyiniz' }); },
+							success: function (result) {
+								var table = $('#dtExcel').DataTable();
+								table.clear().draw();
+								var data = JSON.parse(JSON.stringify(result));
+
+								$(data).each(
+									function () {
+										table.row.add([this.ProductGroup, this.CustomerReferenceCode, this.Code, this.Name, this.LastPrice, this.ReferenceGroup, this.LocalOrExport]).draw().node();
+									}
+								);
+							},
+							error: function (data) {
+								//ShowResult(data);
+								console.log(data);
+							},
+							complete: function () {
+							}
+						}
+					);
+
+				} catch (e) {
+					$.unblockUI();
+					return e.message;
+				}
+			}
+		);
+
+		$('#btnInfo').on('click', function () {
+		//çalışma aşamasında örnek excel dosyası oluşturuyoruz.
+			var tableData = [
+				{
+					"sheetName": "Sheet1",
+					"data": [
+						[{ "text": "Ürün Grup Adı" }, { "text": "Müşteri Referans Kodu" }, { "text": "Referans Kodu" }, { "text": "Referans Adı" },
+						{ "text": "Son Satış Fiyatı" }, { "text": "Referans Grubu" }, { "text": "Local/Export" }],
+						[{ "text": "LFF-BMV" }, { "text": "1111" }, { "text": "BMV001" }, { "text": "TRAVEL" }, { "text": "10" }, { "text": "RESALE" }, { "text": "Local" }],
+						[{ "text": "LFF-BMV" }, { "text": "1111" }, { "text": "BMV002" }, { "text": "TRAVEL01" }, { "text": "15" }, { "text": "RESALE" }, { "text": "Local" }],
+						[{ "text": "LFF-BMV" }, { "text": "2222" }, { "text": "VLVL" }, { "text": "TRAVEL01" }, { "text": "15" }, { "text": "NON-RESALE" }, { "text": "EXPORT" }]
+					]
+				}
+			];
+
+			var options = {
+				fileName: "Örnek Excel"
+			};
+			Jhxlsx.export(tableData, options);
+		});
+
+		$("body").on('click', "#btnSave", function () {
+			var table = $("#dtExcel").DataTable();
+			var TableData = []; //Jquery de dizi
+			var Obj = {}//Jquery de nesne
+
+			table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+				var data = this.data();
+				Obj = {};
+				Obj.ProductGroup = data[0];
+				Obj.CustomerReferenceCode = data[1];
+				Obj.Code = data[2];
+				Obj.Name = data[3];
+				Obj.LastPrice = FiyatHazirla(data[4]);
+				Obj.ReferenceGroup = data[5];
+				Obj.LocalOrExport = data[6];
+
+				TableData.push(Obj);
+			}
+			);
+
+			var sendData = JSON.stringify({ model: TableData });
+			Swal.fire({
+				title: 'Onay',
+				text: 'Kaydetmek istediğinize emin misiniz',
+				showCancelButton: true,
+				showLoaderOnConfirm: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: 'd33',
+				confirmButtonText: 'Tamam',
+				cancelButtonText: 'Vazgeç',
+				preConfirm: (login) => {
+					$.ajax(
+						{
+							url: "/Transfers/SaveExcelData/",
+							type: "POST",
+							contentType: "application/json; charset=utf-8",//eğer işlem/değişken içerisinde türkçe karakter kullanıyorsanız eklemelisiniz
+							dataType: "json",
+							data: sendData,
+							cache: false,
+							processData: false,
+							success: function (result) {
+								SweetAlertDailogMessage(result.Type, result.Message, null, "/References")
+							},
+						});
+				},
+				allowOutsideClick: () => !Swal.isLoading()
+			})
+		});
+
+		function FiyatHazirla(data) {
+			return data.toString().replace(".", ",");
+		}
+		$(document).ajaxStop($.unblockUI);
+	</script>
+}

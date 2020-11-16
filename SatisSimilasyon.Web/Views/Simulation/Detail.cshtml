@@ -1,0 +1,234 @@
+﻿@using SatisSimilasyon.Web.Filter
+@model SatisSimilasyon.Entity.SimulationClasses.Simulation
+@{
+	ViewBag.Title = "Detail";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	string currency = Model.LocalOrExport.ToString() == "Local" ? " ₺" : " £";
+}
+
+<style>
+	.alert {
+		height: 35px;
+		margin-bottom: 0;
+		padding: 10px;
+		text-align: center;
+		align-items: center;
+	}
+
+	::-webkit-input-placeholder { /* Edge */
+		color: #5bc0de !important;
+		text-align: center !important;
+	}
+
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		color: #5bc0de !important;
+		text-align: center !important;
+	}
+
+	::placeholder {
+		color: #5bc0de !important;
+		text-align: center !important;
+	}
+</style>
+
+<div class="row">
+	<div class="col-md-12 col-sm-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="col-md-12">
+					<div class="col-md-4 col-xs-12">
+						<h2>
+							@Model.SimulationName Detay
+						</h2>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+					@Html.HiddenFor(model => model.Id, new { id = "hddnID" })
+					<div class="col-md-12">
+						<div class="form-group ">
+							<label class="control-label col-md-5 col-sm-3 col-xs-6" for="first-name">
+								Mevcut Fiyatlar
+							</label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-6" for="first-name">
+								Yeni Fiyatlar
+							</label>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.ResaleMevcutFiyat, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtResaleOldPrice", disabled = true } })
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.ResaleYeniFiyat, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtResaleNewPrice", disabled = true } })
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Non Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.NonResaleMevcutFiyat, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtNonRelaseOldPrice", disabled = true } })
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.NonResaleYeniFiyat, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtNonRelaseOldNewPrice", disabled = true } })
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Enf *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldEnf" required="required" class="form-control" disabled>
+
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.YeniEnflasyon, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtNewEnf", disabled = true } })
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Artış Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisRelase" required="required" class="form-control" disabled>
+
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.ArtisYeniResale, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtYeniArtisRelase", disabled = true } })
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Artış Non Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisNonRelase" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.ArtisYeniNonResale, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtYeniArtisNonRelase", disabled = true } })
+							</div>
+						</div>
+						<div class="form-group" id="dvLFF">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								LTA
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldLFF" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.YeniLTA, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtNewLFF", disabled = true } })
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+							</div>
+						</div>
+						<div class="form-group" id="dvExport">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Export Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.MevcutArtisExportResale, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtMevcutArtisExportRelase", disabled = true } })
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.YeniArtisExportResale, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtYeniArtisExportRelase", disabled = true } })
+							</div>
+						</div>
+						<div class="form-group " id="dvExportNon">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Export Non Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.MevcutExportNonResale, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtMevcutExportNonRelase", disabled = true } })
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								@Html.EditorFor(model => model.YeniArtisExportNonResale, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtYeniArtisExportNonRelase", disabled = true } })
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ln_solid"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Simülasyon</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li style="margin-left:17px">
+						<label>
+							Ürün Gurubu : @ViewBag.info
+						</label>
+					</li>
+					<li style="margin-left:17px">
+						<label>
+							<label>Local/Export : @Model.LocalOrExport.DisplayName()</label>
+						</label>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+
+				<table id="datatable-responsive"
+							 class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+							 cellspacing="0" role="grid" aria-describedby="datatable-responsive_info"
+							 style="        width: 100%;">
+					<thead>
+						<tr>
+							<th>Müşteri Referans Kodu</th>
+							<th>Referans Kodu</th>
+							<th>Ürün Grubu</th>
+							<th>Satış Miktarı</th>
+							<th>Mevcut Fiyatlar </th>
+							<th>Yeni Fiyatlar </th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model.SimulationLines)
+						{
+							<tr>
+								<td>@item.CustomerReferenceCode</td>
+								<td>@item.ReferenceCode</td>
+								<td>@item.ProductType.DisplayName()</td>
+								<td>@item.SalesQuantity</td>
+								<td>
+									@{
+										string price = item.Price.ToString() + currency;
+								}
+								@price
+							</td>
+							<td>
+								@{
+									string newPrice = item.NewPrice.ToString() + currency;
+							}
+							@newPrice
+						</td>
+					</tr>
+				}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+
+
+	<script type="text/javascript">
+
+    $(document).ready(function () {
+
+    });
+
+	</script>
+
+}

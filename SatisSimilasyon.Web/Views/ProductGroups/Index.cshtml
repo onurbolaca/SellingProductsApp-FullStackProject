@@ -1,0 +1,121 @@
+﻿@using SatisSimilasyon.Web.Filter
+@using SatisSimilasyon.Web.Models
+@model IEnumerable<SatisSimilasyon.Entity.ProductGroupClasses.ProductGroup>
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Ürün Grubu Listesi</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Yeni Ürün Grubu"
+										onclick="location.href='/ProductGroups/Create/'">
+							<i class="fa fa-plus"></i>
+						</button>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="x_content">
+				<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline black" cellpadding="0" cellspacing="0" width="100%" role="grid" describedby="datatable-responsive_info" style="width:100%">
+					<thead>
+						<tr>
+							@if (
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Admin ||
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Sales ||
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Management)
+							{
+								<th>İşlemler</th>
+							}
+							<th>@Html.DisplayNameFor(model => model.Name)</th>
+							<th>@Html.DisplayNameFor(model => model.Oran1)</th>
+							<th>@Html.DisplayNameFor(model => model.Oran2)</th>
+							<th>@Html.DisplayNameFor(model => model.Status)</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr data-id="@item.Id">
+								@if (
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Admin ||
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Sales ||
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Management)
+								{
+									<td>
+										@if (
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Admin ||
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Sales ||
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Management)
+										{
+											<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Düzenle"
+															onclick="location.href='/ProductGroups/Edit/@item.Id'">
+												<i class="fa fa-edit"></i>
+											</button>
+										}
+										@if (
+CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Admin)
+										{
+											<button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sil"
+															id="btnDelete">
+												<i class="fa fa-remove"></i>
+											</button>
+										}
+									</td>
+								}
+								<td>@Html.DisplayFor(modelItem => item.Name)</td>
+								<td>@Html.DisplayFor(modelItem => item.Oran1)</td>
+								<td>@Html.DisplayFor(modelItem => item.Oran2)</td>
+								<td>@item.Status.DisplayName()</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script type="text/javascript">
+		$("body").on("click", "#btnDelete", function () {
+			var row = $(this).closest('tr');
+			var id = row.data('id');
+
+			Swal.fire(
+				{
+					title: 'Silme Uyarısı',
+					text: 'Silmek istediğinize emin misiniz?',
+					showCancelButton: true,
+					showLoaderOnConfirm: true,
+					confirmButtonText: 'Tamam',
+					cancelButtonText: 'Vazgeç',
+					preConfirm: (login) => {
+						$.ajax(
+							{
+								contentType: false,
+								cache: false,
+								processData: false,
+								url: "/ProductGroups/Delete/" + id,
+								type: "POST",
+								success: function (result) {
+									SweetAlertDailogMessage(result.Type, result.Message, row);
+								}
+							});
+					},
+					allowOutsideClick: () => !Swal.isLoading()
+				}
+			)
+		}
+		);
+
+	</script>
+}

@@ -1,0 +1,167 @@
+﻿@model SatisSimilasyon.Entity.ReferenceClasses.Reference
+@{
+	ViewBag.Title = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2 class="black">Referans Düzenle</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
+					<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Referans Kodu <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtCode" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="last-name">
+								Referans Adı <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtName" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Son Satış Fiyatı <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12 ">
+								@Html.EditorFor(model => model.LastPrice, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12 has-feedback-right", id = "txtPrice" } })
+								<span class="form-control-feedback right" aria-hidden="true" id="spanCurrency">₺</span>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.LastPrice, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+
+								Satış Miktarı <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12 ">
+								@Html.EditorFor(model => model.SalesQuantity, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtSalesQuantity" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.SalesQuantity, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Müşteri Referans Kodu<span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.CustomerReferenceCode, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtCustomerReferenceCode" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.CustomerReferenceCode, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Referans Grup<span class="required">*</span>
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								@Html.EnumDropDownListFor(model => model.ReferenceGroup, htmlAttributes: new { @class = "form-control col-md-7 col-xs-12", id = "drpReferenceGroup" })
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px">
+								Local/Export <span class="required">*</span>
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								@Html.EnumDropDownListFor(model => model.LocalOrExport, htmlAttributes: new { @class = "form-control col-md-7 col-xs-12", id = "drpLocalOrExport" })
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px">Aktif <span class="required">Ürün Grup</span></label>
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								@Html.DropDownList("ProductGroupID", null, htmlAttributes: new { @class = "form-control col-md-7 col-xs-12", id = "drpProductGroup" })
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px">Aktif <span class="required">*</span></label>
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								@Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control col-md-2", id = "drpStatus" })
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Açıklama<span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.TextAreaFor(model => model.Definition, new { @class = "form-control col-md-7 col-xs-12", @cols = "40", @rows = "10" })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Definition, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						<ul class="nav navbar-right panel_toolbox">
+							<li>
+								<button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Geri Dön" type="button" onclick="location.href='/References'"><i class="fa fa-arrow-left"></i></button>
+							</li>
+							<li>
+								<button type="submit" data-toggle="tooltip" data-placement="top" title="Kaydet" class="btn btn-warning"><i class="fa fa-check"></i></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@if (ViewBag.PriceLogs != null)
+{
+	<div class="">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2 class="black">Referans Listesi</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline black" cellpadding="0" cellspacing="0" width="100%" role="grid" describedby="datatable-responsive_info" style="width:100%">
+						<thead>
+							<tr>
+								<th>Son Satış Fiyatı</th>
+								<th>Değiiştirme Tarihi</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in ViewBag.PriceLogs)
+							{
+								<tr data-id="@item.Id">
+									<td>
+										@item.LastPriceLog
+									</td>
+									<td>
+										@item.CreatedOn
+									</td>
+								</tr>
+							}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+}

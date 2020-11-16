@@ -1,0 +1,104 @@
+﻿@model SatisSimilasyon.Entity.MailParamsClasses.MailParams
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "MailParams", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2 class="black">Mail Ayar</h2>
+					<div class="clearfix"></div>
+					<button class="btn btn-primary" onclick="location.href='/MailParams/SendTestMail/'">
+					Test Maili Gönder
+					</button>
+				</div>
+				<div class="x_content">
+					<br />
+					<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Mail Adresi <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtMail" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="last-name">
+								Mail Parolası <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtPassword" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								SMTP Adres <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.SMTP, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtSMTP" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.SMTP, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								SMTP Port<span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Port, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtPort" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Port, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								SSL <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.SSL, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtSSL" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.SSL, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						<ul class="nav navbar-right panel_toolbox">
+							<li>
+								<button class="btn btn-default" data-toggle="tooltip" data-placement="top" type="button" onclick="location.href='/'" title="Geri Dön"><i class="fa fa-arrow-left"></i></button>
+							</li>
+							<li>
+								<button type="submit" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Kaydet"><i class="fa fa-check"></i></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section scripts{
+	<script>
+		$(document).ready(function () {
+			isEmpty('error', '@TempData["Empty"]');
+
+			$('#txtPort').mask("99999");
+		});
+
+	</script>
+}

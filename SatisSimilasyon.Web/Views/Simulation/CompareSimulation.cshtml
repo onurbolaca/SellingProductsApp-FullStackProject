@@ -1,0 +1,674 @@
+﻿
+@{
+	ViewBag.Title = "CompareSimulation";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-md-12 col-sm-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="col-md-12">
+					<div class="col-md-4 col-xs-12">
+						<h2>
+							Simülasyon Karşılaştır
+						</h2>
+					</div>
+					<ul class="nav navbar-right panel_toolbox">
+						<li>
+							<select class="form-control" id="drpProductGroup">
+								<option value="0">Ürün Grubu Seçiniz</option>
+								@{
+									if (ViewBag.PG != null)
+									{
+										foreach (var item in ViewBag.PG)
+										{
+											<option value="@item.Value">@item.Text</option>
+										}
+									}
+								}
+							</select>
+						</li>
+						<li>
+							&nbsp;&nbsp;&nbsp;
+						</li>
+						<li>
+							<select class="form-control" id="drpExport">
+								<option value="2">Local/Export Seçiniz</option>
+								<option value="0">Local</option>
+								<option value="1">Export</option>
+							</select>
+						</li>
+						<li>
+							&nbsp;&nbsp;&nbsp;
+						</li>
+						<li>
+							<select class="form-control" id="drpSim1">
+								<option value="0">S1 - Satış Simülasyon</option>
+							</select>
+						</li>
+						<li>
+							&nbsp;&nbsp;&nbsp;
+						</li>
+						<li>
+							<select class="form-control" id="drpSim2">
+								<option value="0">S2 - Mali İşler Simülasyon</option>
+							</select>
+						</li>
+						<li>
+							&nbsp;&nbsp;&nbsp;
+						</li>
+						<li>
+							<button type="submit" class="btn btn-warning" id="btnFilter" data-toggle="tooltip" data-placement="top" title="Filtrele"><i class="fa fa-file-text"></i></button>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-3 col-xs-6">
+								Mevcut Fiyatlar | Satış - S1
+							</label>
+							<label class="control-label col-md-2 col-sm-3 col-xs-6">
+								Yeni Fiyatlar | Satış - S1
+							</label>
+							<label class="control-label col-md-2 col-sm-3 col-xs-6">
+								Mevcut Fiyatlar | Mali İşler - S2
+							</label>
+							<label class="control-label col-md-2 col-sm-3 col-xs-6">
+								Yeni Fiyatlar | Mali İşler - S2
+							</label>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Resale *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtReleaseOldPrices1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtReleaseNewPrices1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtReleaseOldPrices2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtReleaseNewPrices2" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Non Resale *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNonRelaseOldPrices1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNonRelaseOldNewPrices1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNonRelaseOldPrices2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNonRelaseOldNewPrices2" required="required" class="form-control" disabled>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Enf *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldEnfs1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNewEnfs1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldEnfs2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNewEnfs2" required="required" class="form-control" disabled>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Artış Resale *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisRelases1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisRelases1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisRelases2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisRelases2" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Artış Non Resale *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisNonRelases1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisNonRelases1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisNonRelases2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisNonRelases2" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group" id="dvLFF">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								LTA
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldLTA1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNewLTA1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldLTA2" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtNewLTA2" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group" id="dvExport">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Export Release *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisExportRelases1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisExportRelases1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisExportRelases2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisExportRelases2" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group " id="dvExportNon">
+							<label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name">
+								Export Non Release *
+							</label>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutExportNonRelases1" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisExportNonRelases1" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutExportNonRelases2" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-2 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisExportNonRelases2" required="required" class="form-control" disabled />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ln_solid"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Simülasyon</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<table id="datatable-responsive"
+							 class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+							 cellspacing="0" role="grid" aria-describedby="datatable-responsive_info"
+							 style="        width: 100%;">
+					<thead>
+						<tr>
+							<th>Müşteri Referans Kodu</th>
+							<th>Referans Kodu</th>
+							<th>Ürün Türü</th>
+							<th>Satış Fiyatı</th>
+							<th>Satış - Yeni Fiyatlar </th>
+							<th>Mali İşler - Yeni Fiyatlar </th>
+							<th>Satış Miktarı</th>
+							<th>Satış Fiyat Farkı</th>
+							<th>Cirosal Fark</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ln_solid"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Onaya Gönder</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li style="margin-left:17px">
+						<button type="button" id="btnCompareComplete" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Kaydet"><i class="fa fa-check"></i></button>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+					<div class="form-group ">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+							Onaya Gönderilicek Simülasyon :
+						</label>
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<select class="form-control" id="drpSelectSim">
+								<option value="0">Simülasyonu Seçiniz</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group ">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+							Açıklama :
+						</label>
+						<div class="col-md-3 col-sm-6 col-xs-6">
+							<textarea class="form-control" rows="5" style="resize:none" id="txtDefinition"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+
+	<script type="text/javascript">
+
+		var checkSims = false;
+		var productCheck = false;
+		var typeCheck = false;
+		var Currency;
+		$('#drpProductGroup').on('change', function () {
+
+			var ID = $(this).val();
+			var LocalOrExport = $('#drpExport').val();
+			productCheck = false;
+			checkSims = false;
+			ClearAll();
+			var table = $('#datatable-responsive').DataTable();
+			table.clear().draw();
+
+			if (ID != null && ID != '' && ID != 0) {
+				productCheck = true;
+				FillData(ID, LocalOrExport);
+			}
+
+		});
+
+		$('#drpExport').on('change', function () {
+
+			var typeID = $(this).val();
+			var ProductID = $('#drpProductGroup').val();
+			typeCheck = false;
+			ClearAll();
+			var table = $('#datatable-responsive').DataTable();
+			table.clear().draw();
+			checkSims = false;
+			if (typeID == '0') {
+				Currency = ' ₺';
+			}
+			if (typeID == '1') {
+				Currency = ' £';
+			}
+			if (typeID != null && typeID != '' && typeID != 2) {
+				typeCheck = true;
+				FillData(ProductID, typeID);
+			}
+		});
+
+		$('#btnFilter').on('click', function () {
+
+			console.log($('#drpSim1').val());
+
+			var sim1 = $('#drpSim1').val();
+			var sim2 = $('#drpSim2').val();
+
+			if ($('#drpProductGroup').val() <= 0) {
+				toastr["error"]("Ürün Grubu Seçiniz");
+				return;
+			}
+			if (sim1 <= 0) {
+				toastr["error"]("Satış Simülasyonu Seçiniz");
+				return;
+			}
+			if (sim2 <= 0) {
+				toastr["error"]("Mali İşler Simülasyonu Seçiniz");
+				return;
+			}
+			console.log(sim1);
+			console.log(sim2);
+			var sim1Data = GetData(sim1);
+			var sim2Data = GetData(sim2);
+			var Data = [];
+			var table = $("#datatable-responsive").DataTable({
+				retrieve: true,
+				data: Data
+			});
+			var newData = table.rows().data();
+
+
+
+			if (sim1Data != null || sim1Data != "") {
+
+				$.each(sim1Data, function () {
+
+					$("#txtReleaseOldPrices1").val(this.ReleaseMevcutFiyat);
+					$("#txtReleaseNewPrices1").val(this.ReleaseYeniFiyat);
+
+					$("#txtNonRelaseOldPrices1").val(this.NonReleaseMevcutFiyat);
+					$("#txtNonRelaseOldNewPrices1").val(this.NonReleaseYeniFiyat);
+
+					$("#txtOldEnfs1").val(this.MevutEnflasyon);
+					$("#txtNewEnfs1").val(this.YeniEnflasyon);
+
+					$("#txtMevcutArtisRelases1").val(this.ArtisMevcutRelease);
+					$("#txtYeniArtisRelases1").val(this.ArtisYeniRelease);
+
+					$("#txtMevcutArtisNonRelases1").val(this.ArtisMevcutNonRelease);
+					$("#txtYeniArtisNonRelases1").val(this.ArtisYeniNonRelease);
+
+					$("#txtOldLTA1").val(this.MevcutLTA);
+					$("#txtNewLTA1").val(this.YeniLTA);
+
+					$("#txtMevcutArtisExportRelases1").val(this.MevcutArtisExportRelase);
+					$("#txtYeniArtisExportRelases1").val(this.YeniArtisExportRelase);
+
+					$("#txtMevcutExportNonRelases1").val(this.MevcutExportNonRelase);
+					$("#txtYeniArtisExportNonRelases1").val(this.YeniArtisExportNonRelase);
+
+					for (var i = 0; i < this.SimulationLines.length; i++) {
+						newData[i][4] = this.SimulationLines[i].NewPrice + Currency;
+					}
+				});
+
+			}
+			if (sim2Data != null || sim2Data != "" || sim2Data != "undefined") {
+
+				$.each(sim2Data, function () {
+					$("#txtReleaseOldPrices2").val(this.ReleaseMevcutFiyat);
+					$("#txtReleaseNewPrices2").val(this.ReleaseYeniFiyat);
+
+					$("#txtNonRelaseOldPrices2").val(this.NonReleaseMevcutFiyat);
+					$("#txtNonRelaseOldNewPrices2").val(this.NonReleaseYeniFiyat);
+
+					$("#txtOldEnfs2").val(this.MevutEnflasyon);
+					$("#txtNewEnfs2").val(this.YeniEnflasyon);
+
+					$("#txtMevcutArtisRelases2").val(this.ArtisMevcutRelease);
+					$("#txtYeniArtisRelases2").val(this.ArtisYeniRelease);
+
+					$("#txtMevcutArtisNonRelases2").val(this.ArtisMevcutNonRelease);
+					$("#txtYeniArtisNonRelases2").val(this.ArtisYeniNonRelease);
+
+					$("#txtOldLTA2").val(this.MevcutLTA);
+					$("#txtNewLTA2").val(this.YeniLTA);
+
+					$("#txtMevcutArtisExportRelases2").val(this.MevcutArtisExportRelase);
+					$("#txtYeniArtisExportRelases2").val(this.YeniArtisExportRelase);
+
+					$("#txtMevcutExportNonRelases2").val(this.MevcutExportNonRelase);
+					$("#txtYeniArtisExportNonRelases2").val(this.YeniArtisExportNonRelase);
+
+					for (var i = 0; i < this.SimulationLines.length; i++) {
+						newData[i][5] = this.SimulationLines[i].NewPrice + Currency;
+						var mali = parseFloat(newData[i][5]).toFixed(4);
+						var satis = parseFloat(newData[i][4]).toFixed(4)
+						var satisFarki = parseFloat(mali - satis).toFixed(4);
+						var salesQuantity = this.SimulationLines[i].SalesQuantity;
+						newData[i][6] = salesQuantity;
+						newData[i][7] = satisFarki;
+						newData[i][8] = parseFloat(satisFarki * salesQuantity).toFixed(4);
+					}
+				});
+
+			}
+			table.clear().rows.add(newData).draw();
+			checkSims = true;
+
+			var option = document.createElement("option");
+			option.text = $("#drpSim1 option:selected").text();
+			option.value = $("#drpSim1").val();
+			$('#drpSelectSim').append(option);
+
+			var option2 = document.createElement("option");
+			option2.text = $("#drpSim2 option:selected").text();
+			option2.value = $("#drpSim2").val();
+			$('#drpSelectSim').append(option2);
+
+		});
+
+		function GetData(id) {
+			var Type = id;
+			var resultData;
+			$.ajax({
+				url: "/Simulation/GetSimulationDataByID/" + Type,
+				type: 'POST',
+				processData: false,
+				cache: false,
+				async: false,
+				success: function (result) {
+					var data = JSON.parse(result);
+					resultData = data;
+				}, error: function (textStatus) {
+					console.log('ERRORS: ' + textStatus);
+				},
+			})
+			return resultData;
+		}
+
+		function GetDRPData(ProductGroupID, Type, LocalOrExport) {
+			var data;
+
+			var formdata = new FormData();
+
+			formdata.append('ID', ProductGroupID);
+			formdata.append('Type', Type);
+			formdata.append('LocalOrExport', LocalOrExport);
+
+			$.ajax({
+				url: '/Simulation/GetDRPData/',
+				contentType: "application/json; charset=utf-8",
+				data: formdata,
+				cache: false,
+				contentType: false,
+				processData: false,
+				type: 'POST',
+				async: false,
+				success: function (result) {
+					var ConvertedResult = JSON.parse(result);
+
+					data = ConvertedResult;
+				},
+				error: function () {
+					//Hata işlemi.
+				}
+			});
+			return data;
+		}
+
+		function ClearAll() {
+			$('#drpSim1').find('option').remove();
+
+			var option = document.createElement("option");
+			option.text = "S1 - Satış Simülasyon";
+			option.value = 0;
+
+			$('#drpSim1').append(option);
+
+			$('#drpSim2').find('option').remove();
+
+			var option = document.createElement("option");
+			option.text = "S2 - Mali İşler Simülasyon";
+			option.value = 0;
+
+			$('#drpSim2').append(option);
+
+			$('#drpSelectSim').find('option').remove();
+
+			var option = document.createElement("option");
+			option.text = "Simülasyonu Seçiniz";
+			option.value = 0;
+
+			$('#drpSelectSim').append(option);
+
+			$("#txtReleaseOldPrices1").val("");
+			$("#txtReleaseNewPrices1").val("");
+
+			$("#txtNonRelaseOldPrices1").val("");
+			$("#txtNonRelaseOldNewPrices1").val("");
+
+			$("#txtOldEnfs1").val("");
+			$("#txtNewEnfs1").val("");
+
+			$("#txtMevcutArtisRelases1").val("");
+			$("#txtYeniArtisRelases1").val("");
+
+			$("#txtMevcutArtisNonRelases1").val("");
+			$("#txtYeniArtisNonRelases1").val("");
+
+			$("#txtOldLTA1").val("");
+			$("#txtNewLTA1").val("");
+
+
+			$("#txtMevcutArtisExportRelases1").val("");
+			$("#txtYeniArtisExportRelases1").val("");
+
+			$("#txtMevcutExportNonRelases1").val("");
+			$("#txtYeniArtisExportNonRelases1").val("");
+
+			$("#txtReleaseOldPrices2").val("");
+			$("#txtReleaseNewPrices2").val("");
+
+			$("#txtNonRelaseOldPrices2").val("");
+			$("#txtNonRelaseOldNewPrices2").val("");
+
+			$("#txtOldEnfs2").val("");
+			$("#txtNewEnfs2").val("");
+
+			$("#txtMevcutArtisRelases2").val("");
+			$("#txtYeniArtisRelases2").val("");
+
+			$("#txtMevcutArtisNonRelases2").val("");
+			$("#txtYeniArtisNonRelases2").val("");
+
+			$("#txtOldLTA2").val("");
+			$("#txtNewLTA2").val("");
+
+
+			$("#txtMevcutArtisExportRelases2").val("");
+			$("#txtYeniArtisExportRelases2").val("");
+
+			$("#txtMevcutExportNonRelases2").val("");
+			$("#txtYeniArtisExportNonRelases2").val("");
+		}
+
+		$('#btnCompareComplete').on('click', function () {
+			if (productCheck == false && typeCheck == false) {
+				toastr["error"]("İlk Önce Simülasyon Bilgilerini Giriniz");
+				return;
+			}
+			if (checkSims == false) {
+				toastr["error"]("İlk Önce Simülasyon Bilgilerini Giriniz");
+				return;
+			}
+			if ($('#drpSelectSim').val() <= 0) {
+				toastr["error"]("Seçilecek Simülasyonu Seçiniz");
+				return;
+			}
+			if ($('#txtDefinition').val() == null || $('#txtDefinition').val() == '') {
+				toastr["error"]("Açıklama Alanı Boş Geçilemez");
+				return;
+			}
+
+			var SimulationData = {};
+
+			SimulationData.Simulation1ID = $('#drpSim1').val();
+			SimulationData.Simulation2ID = $('#drpSim2').val();
+			SimulationData.SelectedSimulationID = $('#drpSelectSim').val();
+			SimulationData.Definition = $('#txtDefinition').val();
+			SimulationData.ProductGroupID = $('#drpProductGroup').val();
+			SimulationData.LocalOrExport = $('#drpExport').val();
+
+			Swal.fire({
+				title: 'UYARI',
+				text: 'Onaya Göndermek İstediğininize Emin misiniz?',
+				showCancelButton: true,
+				showLoaderOnConfirm: true,
+				confirmButtonText: 'Tamam',
+				cancelButtonText: 'Vazgeç',
+				preConfirm: (login) => {
+					$.ajax({
+						url: "/Simulation/SimulationApproval/",
+						type: "POST",
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						data: JSON.stringify({ model: SimulationData }),
+						cache: false,
+						processData: false,
+						success: function (result) {
+						},
+
+					});
+				},
+				allowOutsideClick: () => !Swal.isLoading()
+			})
+		});
+
+		function FillData(ID, type) {
+			if (productCheck == true && typeCheck == true) {
+				var table = $('#datatable-responsive').DataTable();
+				table.clear().draw();
+				if (ID != null || ID != 0 || ID != "") {
+
+					var sim1 = GetDRPData(ID, 4, type);
+					$.each(sim1, function () {
+
+						var option = document.createElement("option");
+						option.text = this.SimulationName;
+						option.value = this.ID;
+						$('#drpSim1').append(option);
+
+						for (var i = 0; i < this.SimulationLines.length; i++) {
+							table.row.add([this.SimulationLines[i].CustomerReferenceCode, this.SimulationLines[i].ReferenceCode, ConvertToReferenceGroup(this.SimulationLines[i].ProductType), this.SimulationLines[i].Price + Currency, "+", "+", "-", "+", "+"]).draw().node();
+						}
+					});
+
+					var sim2 = GetDRPData(ID, 5, type);
+					$.each(sim2, function () {
+						var option = document.createElement("option");
+						option.text = this.SimulationName
+						option.value = this.ID;
+						$('#drpSim2').append(option);
+					});
+				}
+			}
+		}
+	</script>
+}

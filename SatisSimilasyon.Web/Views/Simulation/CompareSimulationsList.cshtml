@@ -1,0 +1,102 @@
+﻿@using SatisSimilasyon.Web.Filter
+@using SatisSimilasyon.Web.Models
+@model IEnumerable<SatisSimilasyon.Entity.SimulationClasses.ApprovedSimulation>
+@{
+	ViewBag.Title = "CompareSimulationsList";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12 black">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Onay Bekleyen Simülasyon Karşılaştırmaları</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline black" cellspacing="0" width="100%" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
+						<thead>
+							<tr>
+								<th style="max-width:1px">İşlemler</th>
+								<th>Satış Simülasyonu Adı</th>
+								<th>Mali Simülasyon Adı</th>
+								<th>Seçilen Simülasyon</th>
+								<th>Durumu</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr data-id="@item.Id">
+									<td>
+										@if (CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Admin || CurrentSession.User.Department == SatisSimilasyon.Entity.Enum.Department.Management)
+										{
+											<button class="btn btn-info" onclick="location.href='/Simulation/CompareSimulationDetail/@item.Id'" data-toggle="tooltip" data-placement="top" title="Detay"><i class="fa fa-edit"></i></button>
+
+										}
+										<button class="btn btn-info" onclick="location.href='/Simulation/PriceDifference/@item.Id'" data-toggle="tooltip" data-placement="top" title="Fiyat Farkı"><i class="fa fa-turkish-lira"></i></button>
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Simulation1.SimulationName)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Simulation2.SimulationName)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.SelectedSimulation.SimulationName)
+									</td>
+									<td>
+										@item.SimulationStatus.DisplayName()
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var table = $("#datatable-responsive").DataTable();
+
+			table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+				var data = $(this.node());
+				//console.log(data.find('td:eq(4)').text().trim());
+				if (data.find('td:eq(4)').text().trim() == "Beklemede") {
+					data.find('td:eq(4)').css({ 'color': '#f9b000' });
+				}
+				if (data.find('td:eq(4)').text().trim() == "Onaylandı") {
+					data.find('td:eq(4)').css({ 'color': '#00fa30' });
+				}
+				if (data.find('td:eq(4)').text().trim() == "Reddedildi") {
+					data.find('td:eq(4)').css({ 'color': '#ff1c36' });
+				}
+			});
+
+			$('#datatable-responsive thead tr').clone(true).appendTo('#datatable-responsive thead');
+			$('#datatable-responsive thead tr:eq(1) th').each(function (i) {
+				var title = $(this).text();
+				$(this).html('<input type="text" class="form-control " id="' + title + '" placeholder="Ara ' + title + '" />');
+
+				$('input', this).on('keyup change', function () {
+					if (table.column(i).search() !== this.value) {
+						table
+							.column(i)
+							.search(this.value)
+							.draw();
+					}
+				});
+			});
+
+			$('#İşlemler').hide();
+		});
+
+	</script>
+
+}

@@ -1,0 +1,65 @@
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.dll.config
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.dll
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.pdb
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.dll
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.xml
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.firstCheckIn.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.ikinciDuzenleme.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.GenerateResource.cache
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.CopyComplete
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.dll
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.pdb
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.UserClassYetkiIslemi.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Duzenleme1.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.TablodaDuzenlemeYapildi.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Duzenleme.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Degisklik.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.MailSmstpUzunlukDegisti.resources
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csprojAssemblyReference.cache
+C:\Users\User\source\repos\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Yenilikler.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.dll.config
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.dll
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.pdb
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.dll
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.xml
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.firstCheckIn.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.ikinciDuzenleme.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.UserClassYetkiIslemi.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Duzenleme1.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.TablodaDuzenlemeYapildi.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Duzenleme.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Degisklik.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.MailSmstpUzunlukDegisti.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Yenilikler.resources
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.GenerateResource.cache
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.CoreCompileInputs.cache
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.CopyComplete
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.dll
+C:\Users\PC\Downloads\SatisSimilasyon\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.pdb
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.dll.config
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.dll
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\SatisSimilasyon.Entity.pdb
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\EntityFramework.dll
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\EntityFramework.xml
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csprojAssemblyReference.cache
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.firstCheckIn.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.ikinciDuzenleme.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.UserClassYetkiIslemi.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Duzenleme1.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.TablodaDuzenlemeYapildi.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Duzenleme.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Degisklik.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.MailSmstpUzunlukDegisti.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.Migrations.Yenilikler.resources
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.GenerateResource.cache
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.csproj.CopyComplete
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.dll
+C:\Users\PC\source\repos\Satış Simülasyon MVC 4\7 SatisSimilasyon  11-15-20 Ders Bittigindeki Hali\SatisSimilasyon.Entity\obj\Debug\SatisSimilasyon.Entity.pdb

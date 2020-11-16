@@ -1,0 +1,79 @@
+﻿@model SatisSimilasyon.Entity.ProductGroupClasses.ProductGroup
+@{
+	ViewBag.Title = "Edit";
+}
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2 class="black">Product Group Bilgileri</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
+					<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Product Name <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="last-name">
+								Product Oran 1 <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Oran1, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Oran1, "", new { @class = "text-danger" })
+								</div>
+
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="last-name">
+								Product Oran 2 <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Oran2, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Oran2, "", new { @class = "text-danger" })
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px">Aktif <span class="required">*</span></label>
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								@Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control col-md-2", id = "drpStatus" })
+							</div>
+						</div>
+
+
+						<div class="ln_solid"></div>
+						<ul class="nav navbar-right panel_toolbox">
+							<li>
+								<button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="top" title="Geri Dön" onclick="location.href='/ProductGroups'"><i class="fa fa-arrow-left"></i></button>
+							</li>
+
+							<li>
+								<button type="submit" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Kaydet"><i class="fa fa-check"></i></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+

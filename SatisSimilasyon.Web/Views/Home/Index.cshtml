@@ -1,0 +1,49 @@
+﻿@{
+	ViewBag.Title = "Index";
+}
+
+<div class="">
+	<div class="row top_tiles">
+		<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-caret-square-o-right" style="color:#f9b000;"></i></div>
+				<div class="count">@ViewBag.SimCount</div>
+				<h3>-</h3>
+				<p>Toplam Simülasyon</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-comments-o" style="color:#f9b000;"></i></div>
+				<div class="count">@ViewBag.CompareSimCount</div>
+				<h3>-</h3>
+				<p>Onay Bekleyen Simülasyon Karşılaştırmaları</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-6 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-check-square-o" style="color:#f9b000;"></i></div>
+				<div class="count">@ViewBag.ApprovedSim</div>
+				<h3>-</h3>
+				<p>Toplam Onaylanan Simülasyon</p>
+			</div>
+		</div>
+		<div class="animated flipInY col-lg-6 col-md-3 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon"><i class="fa fa-sort-amount-desc" style="color:#f9b000;"></i></div>
+				<div class="count">@ViewBag.Users</div>
+				<h3>-</h3>
+				<p>Toplam Aktif Kullanıcı</p>
+			</div>
+		</div>
+	</div>
+</div>
+@section scripts{
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+		})
+	</script>
+
+}
+

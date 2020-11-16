@@ -1,0 +1,785 @@
+﻿@using SatisSimilasyon.Web.Models
+@{
+	ViewBag.Title = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Yeni Simülasyon</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<select class="form-control" id="drpProductGroup">
+							<option value="0">Ürün Grubu Seçiniz</option>
+							@{
+								if (ViewBag.ProductGroup != null)
+								{
+									foreach (var item in ViewBag.ProductGroup)
+									{
+										<option value="@item.Value">@item.Text</option>
+									}
+								}
+							}
+						</select>
+					</li>
+					<li>&nbsp;&nbsp;&nbsp;</li>
+					<li>
+						<select class="form-control" id="drpExport">
+							<option value="2">Local/Export Seçiniz</option>
+							<option value="0">Local</option>
+							<option value="1">Export</option>
+						</select>
+					</li>
+					<li>&nbsp;&nbsp;&nbsp;</li>
+					<li>
+						<button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Filtrele" onclick="GetData()"><i class="fa fa-filter"></i></button>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+					<div class="col-md-12">
+						<div class="form-group ">
+							<label class="control-label col-md-5 col-sm-3 col-xs-6" for="first-name">
+								Mevcut Fiyatlar
+							</label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-6" for="first-name">
+								Yeni Fiyatlar
+							</label>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtResaleOldPrice" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758" data-mask="99,9999">
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtResaleNewPrice" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758" data-mask="99,9999" />
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Non Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtNonResaleOldPrice" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758" data-mask="99,9999">
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtNonResaleOldNewPrice" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758" data-mask="99,9999">
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Enf *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldEnf" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtNewEnf" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758" data-mask="999">
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Artış Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisResale" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisResale" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Artış Non Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisNonResale" required="required" class="form-control" disabled>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisNonResale" required="required" class="form-control" disabled />
+							</div>
+						</div>
+						<div class="form-group" id="dvLTA">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								LTA
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtOldLTA" required="required" class="form-control" disabled />
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtNewLTA" required="required" class="form-control" placeholder="Opsiyonel Örn: +1,5 & -1,5" />
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+							</div>
+						</div>
+						<div class="form-group" id="dvExport">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Export Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutArtisExportResale" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758">
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisExportResale" required="required" class="form-control" placeholder="Bu Alanı Hesaplama Sonucu Dolacaktır" />
+							</div>
+						</div>
+						<div class="form-group " id="dvExportNon">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+								Export Non Resale *
+							</label>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtMevcutExportNonResale" required="required" class="form-control" placeholder="Bu Alanı Doldurmak Zorunludur Örn:5.3758">
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<input type="text" id="txtYeniArtisExportNonResale" required="required" class="form-control" placeholder="Bu Alanı Hesaplama Sonucu Dolacaktır" />
+							</div>
+						</div>
+						<ul class=" nav navbar-right panel_toolbox">
+							<li>
+								<button type="button" id="btnCalculate" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Hesapla"><i class=" fa fa-calculator"></i></button>
+							</li>
+							<li>
+								<button type="button" id="btnSimulationStart" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Tabloya Yükle"><i class=" fa fa-check"></i></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ln_solid"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					Simülasyon -> Excel için Örnek Şablon <button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Örnek Şablonu indir" id="btnOrnekSablon">
+						<i class="fa fa-info"></i>
+					</button>
+				</h2>
+				@using (Html.BeginForm("UploadExcel", "Simulation", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+				{
+					<ul class="nav navbar-right panel_toolbox">
+						<li>
+							<button id="fileButton" class="btn btn-warning" onclick="document.getElementById('file').click()" type="button">Dosya Seçiniz</button>
+							<input type="file" name="file" id="file" value="" style="display:none" />
+						</li>
+						<li>
+							<button type="submit" class="btn btn-warning" id="btnFileUpload" data-toggle="tooltip" data-placement="top" title="Satış Miktarlarını Yükle"><i class="fa fa-file-text"></i></button>
+						</li>
+						<li>&nbsp;&nbsp;</li>
+					</ul>
+				}
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline black" role="grid" describedby="datatable-responsive_info" style="width:100%">
+					<thead>
+						<tr>
+							<th>Müşteri Referans Kodu</th>
+							<th>Referans Kodu</th>
+							<th>Ürün Türü</th>
+							<th>Satış Miktarı</th>
+							<th>Mevcut Fiyat</th>
+							<th>Yeni Fiyat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ln_solid"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12 black">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					Simülasyon Kaydet
+				</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:left !important; padding-left:100px">
+								Simülasyon Adı
+							</label>
+							<div class="col-md-1 col-sm-1 col-xs-12">
+								<input type="text" id="txtDepartment" required="required" class="form-control col-md-7 col-sm-7 col-xs-12" disabled />
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="txtSimulationName" required="required" class="form-control col-md-7 col-sm-7 col-xs-12" placeholder="Simülasyon adı" />
+							</div>
+						</div>
+					</div>
+					<ul class="nav navbar-right panel_toolbox">
+						<li>
+							<button type="button" class="btn btn-warning" id="btnSave" data-toggle="tooltip" data-placement="top" title="Kaydet"><i class="fa fa-check"></i></button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section scripts{
+	<script type="text/javascript">
+
+		var CalculateIsOk = false;
+		var SimulationIsOk = false;
+		var filterIsOk = false;
+		var oran1;
+		var oran2;
+		$(document).ready(function () {
+			$("#txtResaleOldPrice").focus();
+			$('#txtNewLTA').mask('Z99,99', {
+				translation: {
+					'Z': {
+						pattern: /[+-]/, optional: true
+					}
+				}
+			});
+			var Department = '@CurrentSession.User.Department';
+			if (Department ==='Sales') {	$('#txtDepartment').val('Satış - ') 	}
+			else if (Department === 'FinancialConsultant') { $('#txtDepartment').val('Mali - ') }
+			else if (Department === 'Admin') { $('#txtDepartment').val('Satış - ') }
+			else if (Department === 'Management') { $('#txtDepartment').val('Satış - ') }
+
+		});
+
+		$("#btnSave").on("click", function () {
+			try {
+				var department = $('#txtDepartment').val();
+				var SimulationName = $("#txtSimulationName").val();
+
+				if (SimulationName == '' || SimulationName == null) {
+					toastr["error"]("İlk Önce Simülasyon Adı Giriniz");
+					return;
+				}
+				if (CalculateIsOk == false || SimulationIsOk == false || filterIsOk == false) {
+					toastr["error"]("Simülasyonu Başlattıktan sonra kayıt işlemine geçiniz");
+				}
+				else {
+					var ResaleMevcutFiyat = $("#txtResaleOldPrice").val();
+
+					var ResaleYeniFiyat = $("#txtResaleNewPrice").val();
+
+					var NonResaleMevcutFiyat = $("#txtNonResaleOldPrice").val();
+					var NonResaleYeniFiyat = $("#txtNonResaleOldNewPrice").val();
+
+					var MevutEnflasyon = $("#txtOldEnf").val();
+					var YeniEnflasyon = $("#txtNewEnf").val();
+
+					var ArtisMevcutResale = $("#txtMevcutArtisResale").val();
+					var ArtisYeniResale = $("#txtYeniArtisResale").val();
+
+					var ArtisMevcutNonResale = $("#txtMevcutArtisNonResale").val();
+					var ArtisYeniNonResale = $("#txtYeniArtisNonResale").val();
+
+					var MevcutLTA = $("#txtOldLTA").val();
+					var YeniLTA = $("#txtNewLTA").val();
+
+
+					var MevcutArtisExportResale = $("#txtMevcutArtisExportResale").val();
+					var YeniArtisExportResale = $("#txtYeniArtisExportResale").val();
+
+					var MevcutExportNonResale = $("#txtMevcutExportNonResale").val();
+					var YeniArtisExportNonResale = $("#txtYeniArtisExportNonResale").val();
+
+					var ProductGroup = $('#drpProductGroup').val();
+					var LocalOrExport = $('#drpExport').val();
+
+
+					var SimiulationData = {};
+
+					SimiulationData.SimulationName = department+SimulationName;
+					SimiulationData.ResaleMevcutFiyat = ResaleMevcutFiyat.replace(".", ",");
+					SimiulationData.ResaleYeniFiyat = ResaleYeniFiyat.replace(".", ",");
+					SimiulationData.NonResaleMevcutFiyat = NonResaleMevcutFiyat.replace(".", ",");
+					SimiulationData.NonResaleYeniFiyat = NonResaleYeniFiyat.replace(".", ",");
+					SimiulationData.MevutEnflasyon = MevutEnflasyon.replace(".", ",");
+					SimiulationData.YeniEnflasyon = YeniEnflasyon.replace(".", ",");
+					SimiulationData.ArtisMevcutResale = ArtisMevcutResale.replace(".", ",");
+					SimiulationData.ArtisYeniResale = ArtisYeniResale.replace(".", ",");
+					SimiulationData.ArtisMevcutNonResale = ArtisMevcutNonResale.replace(".", ",");
+					SimiulationData.ArtisYeniNonResale = ArtisYeniNonResale.replace(".", ",");
+					SimiulationData.MevcutArtisExportResale = MevcutArtisExportResale.replace(".", ",");
+					SimiulationData.YeniArtisExportResale = YeniArtisExportResale.replace(".", ",");
+					SimiulationData.MevcutExportNonResale = MevcutExportNonResale.replace(".", ",");
+					SimiulationData.YeniArtisExportNonResale = YeniArtisExportNonResale.replace(".", ",");
+					SimiulationData.MevcutLTA = MevcutLTA.replace(".", ",");
+					SimiulationData.YeniLTA = YeniLTA.replace(".", ",");
+					SimiulationData.ProductGroupID = ProductGroup;
+					SimiulationData.LocalOrExport = LocalOrExport;
+
+					var TableData = [];
+					var Obj = {};
+
+					var table = $("#datatable-responsive").DataTable();
+
+					table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+						Obj = {};
+						var data = this.data();
+						Obj.CustomerReferenceCode = data[0];
+						Obj.ReferenceCode = data[1];
+						Obj.ProductType = data[2];
+						Obj.SalesQuantity = data[3];
+						Obj.Price = tryReplace(data[4]);
+
+						Obj.NewPrice = tryReplace(data[5]);
+						TableData.push(Obj);
+					});
+					SimiulationData.Lines = TableData;
+
+					Swal.fire({
+						title: 'UYARI',
+						text: 'Simülasyonu Kaydetmek İstediğinize Emin Misiniz ?',
+						showCancelButton: true,
+						showLoaderOnConfirm: true,
+						confirmButtonText: 'Tamam',
+						cancelButtonText: 'Vazgeç',
+						preConfirm: (login) => {
+							$.ajax({
+								url: "/Simulation/Create",
+								type: 'POST',
+								data: { model: SimiulationData },
+								dataType: "json",
+								success: function (result) {
+									SweetAlertDailogMessage(result.Type, result.Message, null,"/Simulation");
+								},
+								complete: function (result) {
+								}
+							});
+						},
+						allowOutsideClick: () => !Swal.isLoading()
+					})
+				}
+
+			} catch (e) {
+				return e.message;
+			}
+
+		});
+
+		$('form').submit(function (event) {
+			event.preventDefault();
+
+			if ($("#file").val() == "") {
+				toastr["error"]("Lütfen Önce Excel Dosyası Ekleyiniz");
+				return;
+			}
+			if (CalculateIsOk == false || filterIsOk == false) {
+				toastr["error"]("Lütfen İlk Önce Filtreleme ve Hesaplama İşlemlerini Yapınız");
+				return;
+			}
+
+			var formdata = new FormData($(this).get(0));
+
+			$.ajax({
+				url: this.action,
+				type: this.method,
+				data: formdata,
+				processData: false,
+				contentType: false,
+				beforeSend: function () {
+					$.blockUI({ message: '<h1>Excel Verileri Aktarılıyor.<br/>Lütfen Bekleyin...</h1>' });
+				},
+				success: function (result) {
+					var dataSalesQuantity = JSON.parse(JSON.stringify(result));
+					var table = $('#datatable-responsive').DataTable();
+					var dataCount = Object.keys(dataSalesQuantity).length;
+					console.log(dataCount)
+					table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+						var data = this.data();
+						var customerReferenceCode = data[0];
+						var referenceCode = data[1];
+						for (var i = 0; i < dataCount; i++) {
+							if (dataSalesQuantity[i].CustomerReferenceCode == customerReferenceCode && dataSalesQuantity[i].ReferenceCode == referenceCode) {
+								data[3] = dataSalesQuantity[i].SalesQuantity;
+							}
+						}
+					});
+					var newData = table.data();
+					table.clear().rows.add(newData).draw();
+				},
+				error: function (data) {
+					ShowResult(data);
+				},
+				complete: function () {
+				}
+			});
+		});
+
+		$("#drpExport").on("change", function () {
+			ClearAll();
+			if ($(this).val() == 2) {
+				$("#dvExportNon").css("display", "block");
+				$("#dvExport").css("display", "block");
+			}
+			else if ($(this).val() == 0) {
+				$("#dvExportNon").css("display", "none");
+				$("#dvExport").css("display", "none");
+			}
+			else {
+				$("#dvExportNon").css("display", "block");
+				$("#dvExport").css("display", "block");
+			}
+		});
+
+		$("body").on("click", "#btnSimulationStart", function () {
+
+			var Data = [];
+			var table = $("#datatable-responsive").DataTable({
+				retrieve: true,
+				data: Data
+			});
+			var currency;
+			var LTA = $('#txtNewLTA').val();
+			LTA = parseFloat(LTA.replace(",", ".")).toFixed(2);
+			var newLTA;
+			var CalcultedAmount;
+
+			table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+				var data = this.data();
+
+				if ($('#drpExport').val() == "0") {
+					currency = ' ₺'
+					if (data[2].indexOf("Non") >= 0) {
+						var CalculatedValue = parseFloat($("#txtYeniArtisNonResale").val()).toFixed(4);
+						var Amount = parseFloat(data[4]).toFixed(4);
+						CalcultedAmount = parseFloat(CalculatedValue * Amount).toFixed(4);
+					}
+					else {
+						var CalculatedValue = parseFloat($("#txtYeniArtisResale").val()).toFixed(4);
+						var Amount = parseFloat(data[4]).toFixed(2);
+						CalcultedAmount = parseFloat(CalculatedValue * Amount).toFixed(4);
+					}
+				}
+				if ($('#drpExport').val() == "1") {
+					currency = ' £'
+					if (data[2].indexOf("Non") >= 0) {
+						var CalculatedValueArtisNonResale = parseFloat($("#txtYeniArtisNonResale").val().replace(",", ".")).toFixed(4);
+						var CalculatedValueExportNonResaleMevcut = parseFloat($("#txtMevcutExportNonResale").val().replace(",", ".")).toFixed(4);
+						var CalculatedValueExportNonResaleYeni = parseFloat($("#txtYeniArtisExportNonResale").val().replace(",", ".")).toFixed(4);
+						var Amount = parseFloat(data[4]).toFixed(4);
+						CalcultedAmount = parseFloat(Amount * CalculatedValueExportNonResaleMevcut * CalculatedValueArtisNonResale / CalculatedValueExportNonResaleYeni).toFixed(4);
+					}
+					else {
+						var CalculatedValueArtisResale = parseFloat($("#txtYeniArtisResale").val().replace(",", ".")).toFixed(4);
+						var CalculatedValueExportResaleMevcut = parseFloat($("#txtMevcutArtisExportResale").val().replace(",", ".")).toFixed(4);
+						var CalculatedValueExportResaleYeni = parseFloat($("#txtYeniArtisExportResale").val().replace(",", ".")).toFixed(4);
+						var Amount = parseFloat(data[4]).toFixed(4);
+						CalcultedAmount = parseFloat(Amount * CalculatedValueExportResaleMevcut * CalculatedValueArtisResale / CalculatedValueExportResaleYeni).toFixed(4);
+					}
+				}
+				if (LTA > 0) data[5] = (((10 + LTA) / 100) * CalcultedAmount).toFixed(4) + currency;
+				else if (LTA.toString().indexOf("-") != -1) {
+					newLTA = LTA.replace("-", " ").trim();
+					data[5] = (((100 - newLTA) / 100) * CalcultedAmount).toFixed(4) + currency;
+				}
+				else data[5] = CalcultedAmount + currency;
+			});
+			var newData = table.rows().data();
+			if (newData != null || newData != '') {
+
+				if (CalculateIsOk != true) {
+					toastr["error"]("Hesaplama İşlemini Yapınız");
+				}
+				if (filterIsOk != true) {
+					toastr["error"]("Ürün Grubu Filtreleme İşlemini Yapınız");
+				}
+				if (filterIsOk == true && CalculateIsOk == true) {
+					table.clear().rows.add(newData).draw();
+					SimulationIsOk = true;
+				}
+			}
+		});
+
+		$("#btnCalculate").on("click", function () {
+
+			CleanValidation();
+
+			ValidateAndCalculate();
+		});
+
+		$('#drpProductGroup').on('change', function () {
+			ClearAll();
+		});
+
+		function ValidateAndCalculate() {
+
+			var Type = $("#drpExport").val();
+
+			var ResaleMevcutFiyat = $("#txtResaleOldPrice").val();
+			var ResaleYeniFiyat = $("#txtResaleNewPrice").val();
+
+			var NonResaleMevcutFiyat = $("#txtNonResaleOldPrice").val();
+			var NonResaleYeniFiyat = $("#txtNonResaleOldNewPrice").val();
+
+			var MevutEnflasyon = $("#txtOldEnf").val();
+			var YeniEnflasyon = $("#txtNewEnf").val();
+
+			var ArtisMevcutResale = $("#txtMevcutArtisResale").val();
+			var ArtisYeniResale = $("#txtYeniArtisResale").val();
+
+			var ArtisMevcutNonResale = $("#txtMevcutArtisNonResale").val();
+			var ArtisYeniNonResale = $("#txtYeniArtisNonResale").val();
+
+			var MevcutArtisExportResale = $("#txtMevcutArtisExportResale").val();
+			var YeniArtisExportResale = $("#txtYeniArtisExportResale").val();
+
+			var MevcutExportNonResale = $("#txtMevcutExportNonResale").val();
+			var YeniArtisExportNonResale = $("#txtYeniArtisExportNonResale").val();
+
+			var IsValid = true;
+
+			if (Type == 0) {
+
+				if (ResaleMevcutFiyat == "") {
+					$("#txtResaleOldPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (ResaleYeniFiyat == "") {
+					$("#txtResaleNewPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (NonResaleMevcutFiyat == "") {
+					$("#txtNonResaleOldPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (NonResaleYeniFiyat == "") {
+					$("#txtNonResaleOldNewPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (YeniEnflasyon == "") {
+					$("#txtNewEnf").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+			}
+
+			else if (Type == 1) {
+
+				if (ResaleMevcutFiyat == "") {
+					$("#txtResaleOldPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (ResaleYeniFiyat == "") {
+					$("#txtResaleNewPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (NonResaleMevcutFiyat == "") {
+					$("#txtNonResaleOldPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (NonResaleYeniFiyat == "") {
+					$("#txtNonResaleOldNewPrice").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (YeniEnflasyon == "") {
+					$("#txtNewEnf").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (MevcutArtisExportResale == "") {
+					$("#txtMevcutArtisExportResale").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (MevcutExportNonResale == "") {
+					$("#txtMevcutExportNonResale").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+				if (YeniArtisExportResale == "") {
+					$("#txtYeniArtisExportResale").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+				if (YeniArtisExportNonResale == "") {
+					$("#txtYeniArtisExportNonResale").css("border", "3px solid #bd2130");
+					IsValid = false;
+				}
+
+			}
+			else {
+				toastr["error"]("Local/Export Seçimi Yapınız");
+				return;
+			}
+
+			if (IsValid == true) {
+				var neworan1 = parseFloat(oran1).toFixed(2);
+				var neworan2 = parseFloat(oran2).toFixed(2);
+				var ArtisResale;
+				var ArtisNonResale;
+				ResaleMevcutFiyat = parseFloat(ResaleMevcutFiyat.replace(",", ".")).toFixed(2);
+				ResaleYeniFiyat = parseFloat(ResaleYeniFiyat.replace(",", ".")).toFixed(2);
+				NonResaleMevcutFiyat = parseFloat(NonResaleMevcutFiyat.replace(",", ".")).toFixed(2);
+				NonResaleYeniFiyat = parseFloat(NonResaleYeniFiyat.replace(",", ".")).toFixed(2);
+				MevutEnflasyon = parseFloat(MevutEnflasyon.replace(",", ".")).toFixed(2);
+				YeniEnflasyon = parseFloat(YeniEnflasyon.replace(",", ".")).toFixed(2);
+				ArtisMevcutResale = parseFloat(ArtisMevcutResale.replace(",", ".")).toFixed(2);
+				ArtisMevcutNonResale = parseFloat(ArtisMevcutNonResale.replace(",", ".")).toFixed(2);
+
+				ArtisResale = parseFloat((((ResaleYeniFiyat / ResaleMevcutFiyat) - 1) * neworan1 + (YeniEnflasyon * neworan2) / 100) + 1).toFixed(4);
+				ArtisNonResale = parseFloat(((NonResaleYeniFiyat / NonResaleMevcutFiyat - 1) * neworan1 + (YeniEnflasyon * neworan2) / 100) + 1).toFixed(4);
+
+				$("#txtYeniArtisNonResale").val(ArtisNonResale);
+				$("#txtYeniArtisResale").val(ArtisResale);
+				CalculateIsOk = true;
+			}
+		}
+
+		function CleanValidation() {
+			$("#txtResaleOldPrice").css("border", "1px solid #ccc");
+			$("#txtResaleNewPrice").css("border", "1px solid #ccc");
+			$("#txtNonResaleOldPrice").css("border", "1px solid #ccc");
+			$("#txtNonResaleOldNewPrice").css("border", "1px solid #ccc");
+			$("#txtOldEnf").css("border", "1px solid #ccc");
+			$("#txtNewEnf").css("border", "1px solid #ccc");
+			$("#txtMevcutArtisResale").css("border", "1px solid #ccc");
+			$("#txtMevcutArtisNonResale").css("border", "1px solid #ccc");
+			$("#txtMevcutArtisExportResale").css("border", "1px solid #ccc");
+			$("#txtYeniArtisExportResale").css("border", "1px solid #ccc");
+			$("#txtMevcutExportNonResale").css("border", "1px solid #ccc");
+			$("#txtYeniArtisExportNonResale").css("border", "1px solid #ccc");
+		}
+
+		function GetData() {
+
+			var Type = $("#drpExport").val();
+			var ProductGroupID = $("#drpProductGroup").val();
+
+			if (ProductGroupID <= 0) {
+				toastr["error"]("Ürün Grubu Alanını Geçiniz");
+				return;
+			}
+
+			if (Type == "2") {
+				toastr["error"]("Local/Export Alanını Geçiniz");
+				return;
+			}
+			$.ajax({
+				url: "/Simulation/GetReferanceByGroup",
+				type: 'POST',
+				cache: false,
+				data: {
+					'ID': Type,
+					'ProductGroupID': ProductGroupID
+				},
+				success: function (result) {
+					var table = $('#datatable-responsive').DataTable();
+					table.clear().draw();
+					var data = JSON.parse(result);
+					oran1 = data[0].ProductGroup.Oran1.toString().replace(",", ".");
+					oran2 = data[0].ProductGroup.Oran2.toString().replace(",", ".");
+					if ($('#drpExport').val() == '0') {
+						$(data).each(function () {
+							table.row.add([this.CustomerReferenceCode, this.Code, ConvertToReferenceGroup(this.ReferenceGroup), "0", this.LastPrice + ' ₺', "-"]).draw().node();
+						});
+					}
+					else if ($('#drpExport').val() == '1') {
+						$(data).each(function () {
+							table.row.add([this.CustomerReferenceCode, this.Code, ConvertToReferenceGroup(this.ReferenceGroup), "0", this.LastPrice + ' £', "-"]).draw().node();
+						});
+					}
+					filterIsOk = true;
+				}
+			})
+		}
+
+		function tryReplace(data) {
+			var value = data.replace(".", ",");
+
+			var newvalue;
+			if ($('#drpExport').val() == '0') {
+				newvalue = value.toString().replace("₺", " ");
+			}
+			else if
+				($('#drpExport').val() == '1') {
+				newvalue = value.toString().replace("£", " ");
+			}
+
+			console.log(newvalue.toString().trim());
+			return newvalue.toString().trim();
+		}
+
+		function ClearAll() {
+			CalculateIsOk = false;
+			SimulationIsOk = false;
+			filterIsOk = false;
+			var table = $("#datatable-responsive").DataTable();
+			table.clear().draw();
+			$("#txtResaleOldPrice").val("");
+			$("#txtResaleNewPrice").val("");
+
+			$("#txtNonResaleOldPrice").val("");
+			$("#txtNonResaleOldNewPrice").val("");
+
+			$("#txtOldEnf").val("");
+			$("#txtNewEnf").val("");
+
+			$("#txtMevcutArtisResale").val("");
+			$("#txtYeniArtisResale").val("");
+
+			$("#txtMevcutArtisNonResale").val("");
+			$("#txtYeniArtisNonResale").val("");
+
+			$("#txtOldLTA").val("");
+			$("#txtNewLTA").val("");
+
+			$("#txtMevcutArtisExportResale").val("");
+			$("#txtYeniArtisExportResale").val("");
+
+			$("#txtMevcutExportNonResale").val("");
+			$("#txtYeniArtisExportNonResale").val("");
+	}
+
+		$('#btnInfo').on('click', function () {
+			var tableData = [
+								 {
+                    "sheetName": "Örnek",
+									 "data": [
+
+										 [{ "text": "Müşteri Referans Kodu" }, { "text": "Referans Kodu" }, { "text": "Satış Miktarı" }],
+									 ]
+				}
+			];
+
+			var options = {
+                    fileName: "SatisSimilasyon-Excel Satış Miktarı Örnek Şablonu"
+                };
+                Jhxlsx.export(tableData, options);
+		});
+
+		$(document).ajaxStop($.unblockUI);
+	</script>
+}

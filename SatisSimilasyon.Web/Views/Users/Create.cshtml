@@ -1,0 +1,120 @@
+﻿@model SatisSimilasyon.Web.Models.UserModel
+
+@{
+	ViewBag.Title = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2 class="black">Kullanıcı Bilgileri</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
+					<div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left black">
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Kullanıcı Ad <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtName" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="last-name">
+								Kullanıcı Soyad <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtSurname" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Kullanıcı Email <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtEmail" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Kullanıcı Giriş Adı<span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtUserName" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px" for="first-name">
+								Kullanıcı Parola<span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", id = "txtPassword", type = "password" } })
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px">
+								Bölüm <span class="required">*</span>
+							</label>
+							<div class="btn-group col-md-2">
+								@Html.EnumDropDownListFor(model => model.Department, "Departman Seçiniz", htmlAttributes: new { @class = "form-control col-md-2 js-example-placeholder-single js-states" })
+								@Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: left !important; padding-left: 120px">Aktif <span class="required">*</span></label>
+							<div class="col-md-2 col-sm-6 col-xs-12">
+								@Html.EnumDropDownListFor(model => model.Status, "Durum Seçiniz", htmlAttributes: new { @class = "form-control col-md-2" })
+								@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						<ul class="nav navbar-right panel_toolbox">
+							<li>
+								<button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="top" title="Geri Dön" onclick="location.href='/Users'"><i class="fa fa-arrow-left"></i></button>
+							</li>
+
+							<li>
+								<button type="submit" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Kaydet"><i class="fa fa-check"></i></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section scripts{
+	<script>
+		$(document).ready(
+			function () {
+			document.getElementById("Department").selectedIndex = "";
+				document.getElementById("Status").selectedIndex = "";
+				document.getElementById("Status").selectedIndex = "";
+			}
+		);
+		
+	</script>
+}
