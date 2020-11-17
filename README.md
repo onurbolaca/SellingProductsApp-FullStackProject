@@ -2,7 +2,7 @@
 
 - İki departman arasındaki değerleri simüle edip karşılaştırma yapan bir uygulama.
 
--Entity Models ve Web Models 
+- Entity Models ve Web Models 
 - 101 LINQ SAMPLES Kullanımı 
 - Filter'lar (Auth, Notifications, OnlyManagement) 
 - Helpers (EnumHelper vb) 
