@@ -17,4 +17,5 @@
 - Javascript DOM 
 - jQuery Kullanma
 - Ajax Get / Post Kullanma (sweetalert vb) 
-- Email Gönderme * Excel'e Çekme / Alma
+- E-mail Gönderme 
+- Excel'e Veri Alma
