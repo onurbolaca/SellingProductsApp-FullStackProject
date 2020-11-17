@@ -4,6 +4,7 @@
 
 
 - Entity Models ve Web Models 
+- Migrations
 - 101 LINQ SAMPLES Kullanımı 
 - Filter'lar (Auth, Notifications, OnlyManagement) 
 - Helpers (EnumHelper vb) 
