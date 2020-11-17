@@ -1,6 +1,7 @@
 # Satış Simülasyonu 
 
-- İki departman arasındaki değerleri simüle edip karşılaştırma yapan bir uygulama.
+-İki departman arasındaki değerleri simüle edip karşılaştırma yapan bir uygulama.
+
 
 - Entity Models ve Web Models 
 - 101 LINQ SAMPLES Kullanımı 
