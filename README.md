@@ -1,24 +1,23 @@
-# Satış Simülasyonu 
+# Sales APP
 
--İki departman arasındaki değerleri simüle edip karşılaştırma yapan bir uygulama.
+-An application that simulates and compares values between two departments.
 
-
-- Entity Models ve Web Models 
+- Entity Models and Web Models 
 - Migrations
 - Entity Framework ORM
 - Codefirst Approach
-- 101 LINQ SAMPLES Kullanımı 
-- Filter'lar (Auth, Notifications, OnlyManagement) 
-- Helpers (EnumHelper vb) 
+- Usage of 101 LINQ SAMPLES 
+- Filters (Auth, Notifications, OnlyManagement) 
+- Helpers (EnumHelper, etc.) 
 - CurrentSession 
 - ValidationModel 
 - Model Binding 
-- Tema giydirme 
+- Theming 
 - Bootstrap 4 
 - HTML5 
 - CSS 
 - Javascript DOM 
-- jQuery Kullanma
-- Ajax Get / Post Kullanma (sweetalert vb) 
-- E-mail Gönderme 
-- Excel'e Veri Alma
+- Use of jQuery
+- Ajax Get / Post Usage (e.g., with sweetalert)
+- Sending Emails 
+- Retrieving Data to Excel
